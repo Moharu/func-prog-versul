@@ -19,12 +19,22 @@ it('Função filter', () => {
 
     // Imagine que queremos uma nova lista, mas apenas dos catioros
     // Como é feito normalmente:
+    /*
     let dogs = []
     for(let i = 0; i < animals.length; i++){
         if(animals[i].species === 'dog'){
             dogs.push(animals[i])
         }
     }
+    */
+
+    // Com filter:
+    const dogs = animals.filter((a) => a.species === 'dog')
+    /*
+    // Outra opção seria definir a função de comparação fora:
+    const isDog = (a) => a.species === 'dog'
+    const dogs = animals.filter(isDog)
+    */
 
     const expectedResult = [
         { name: 'Claudiovaldo', species: 'dog'},
