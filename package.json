@@ -1,0 +1,26 @@
+{
+  "name": "func-prog-versul",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --compilers js:babel-core/register --reporter spec presentation"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moharu/func-prog-versul.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moharu/func-prog-versul/issues"
+  },
+  "homepage": "https://github.com/Moharu/func-prog-versul#readme",
+  "dependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.10.1",
+    "babel-preset-es2015": "^6.9.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^2.5.3"
+  }
+}
