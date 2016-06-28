@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --compilers js:babel-core/register --reporter spec presentation",
-    "desafio": "mocha --compilers js:babel-core/register --reporter spec desafio"
+    "desafio": "mocha --compilers js:babel-core/register --reporter spec desafio",
+    "desafio2": "mocha --compilers js:babel-core/register --reporter spec desafio2"
   },
   "repository": {
     "type": "git",
