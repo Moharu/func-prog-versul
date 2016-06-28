@@ -7,40 +7,37 @@ iterator: Function(previousValue, currentValue[, currentIndex, array])
 */
 it('Função REDUCE', () => {
 
-    // Um exemplo mais complexo
-    const animals = [
-        { name: 'José', species: 'bird'},
-        { name: 'Claudiovaldo', species: 'dog'},
-        { name: 'Boladepelo', species: 'cat'},
-        { name: 'Cusco', species: 'dog'},
-        { name: 'Godofredo', species: 'bird'},
-        { name: 'Garfield', species: 'cat'},
-        { name: 'Scooby', species: 'dog'}
-    ]
-    // Quero saber a quantidade de animais por espécie,
-    // o resultado esperado é um json nesse formato:
-    const expectedResult = {
-        bird: 2,
-        dog: 3,
-        cat: 2
-    }
+    // Existem muitas possibilidades de utilização do REDUCE,
+    // limitadas apenas à criatividade
+    // Aqui um exemplo legal:
 
-    const countedSpecies = animals.reduce((counter, animal) => {
-        console.log('Estado inicial: ', counter)
-        console.log('Animal da vez: ', animal)
-        counter[animal.species] = counter[animal.species] || 0
-        // Gambiarra javascríptica que estabelece o valor 0 para a chave
-        // caso ela não esteja definida
-        counter[animal.species] += 1
-        // Soma a espécie atual
-        console.log('Novo estado: ', counter)
-        return counter
-    },{}) // parâmetro initialValue = {} (objeto vazio)
+    // Para fazer uma cobrança, recebemos um valor base, mas devemos exibir
+    // para o usuário o valor correto a ser cobrado. Esse procedimento implica
+    // em somar juros, uma taxa física, e não esquecer de exibir um cifrão na
+    // frente do valor, que deve ter duas casas decimais
+
+    const somarJuros = (valor) => valor * 1.05
+    const somarTaxa = (valor) => valor + 5
+    const duasCasasDecimais = (valor) => valor.toFixed(2)
+    const adicionaCifrao = (valor) => '$ ' + valor
+
+    // Quebramos cada procedimento em um problema, e definimos o array
+    // procedimentoCobranca com a ordem em que eles devem ser efetuados
+    const procedimentoCobranca = [
+        somarJuros,
+        somarTaxa,
+        duasCasasDecimais,
+        adicionaCifrao
+    ]
+
+    const valorRecebido = 50
+    const valorAPagar = procedimentoCobranca.reduce((valor, procedimento) => procedimento(valor), valorRecebido)
+    // Utilizamos um reduce no procedimentoCobranca, que vai chamar cada
+    // função, da esquerda pra direita, com o valor retornado pelo procedimento
+    // anterior. O valor inicial foi definido como o valorRecebido
 
     expect(
-        JSON.stringify(countedSpecies)
-    ).to.equal(
-        JSON.stringify(expectedResult)
-    )
+        valorAPagar
+    ).to.equal('$ 57.50')
 
 })
