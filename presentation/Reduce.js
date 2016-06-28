@@ -7,7 +7,7 @@ iterator: Function(previousValue, currentValue[, currentIndex, array])
 */
 it('Função REDUCE', () => {
 
-    // Vamos olhar um novo exemplo com os amiguinhos
+    // Um exemplo mais complexo
     const animals = [
         { name: 'José', species: 'bird'},
         { name: 'Claudiovaldo', species: 'dog'},
@@ -17,23 +17,30 @@ it('Função REDUCE', () => {
         { name: 'Garfield', species: 'cat'},
         { name: 'Scooby', species: 'dog'}
     ]
-    // Quero saber a quantidade de cachorros no array animals
-    //  OBS: Uma alternativa é utilizar Filter com .length
-
-    const isDog = (a) => a.species === 'dog'
-    const dogReducer = (count, animal) => {
-        return isDog(animal) ? count + 1 : count
+    // Quero saber a quantidade de animais por espécie,
+    // o resultado esperado é um json nesse formato:
+    const expectedResult = {
+        bird: 2,
+        dog: 3,
+        cat: 2
     }
-    const quantosDoge = animals.reduce(dogReducer, 0)
-    expect(
-        quantosDoge
-    ).to.equal(3)
 
-    // Forma reduzida:
-    const countDoges = animals.reduce((c,a) => a.species === 'dog'? c+1 : c, 0)
-    expect(
-        countDoges
-    ).to.equal(3)
+    const countedSpecies = animals.reduce((counter, animal) => {
+        console.log('Estado inicial: ', counter)
+        console.log('Animal da vez: ', animal)
+        counter[animal.species] = counter[animal.species] || 0
+        // Gambiarra javascríptica que estabelece o valor 0 para a chave
+        // caso ela não esteja definida
+        counter[animal.species] += 1
+        // Soma a espécie atual
+        console.log('Novo estado: ', counter)
+        return counter
+    },{}) // parâmetro initialValue = {} (objeto vazio)
 
+    expect(
+        JSON.stringify(countedSpecies)
+    ).to.equal(
+        JSON.stringify(expectedResult)
+    )
 
 })
