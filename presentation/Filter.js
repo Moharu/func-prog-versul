@@ -30,11 +30,6 @@ it('Função filter', () => {
 
     // Com filter:
     const dogs = animals.filter((a) => a.species === 'dog')
-    /*
-    // Outra opção seria definir a função de comparação fora:
-    const isDog = (a) => a.species === 'dog'
-    const dogs = animals.filter(isDog)
-    */
 
     const expectedResult = [
         { name: 'Claudiovaldo', species: 'dog'},
@@ -50,5 +45,15 @@ it('Função filter', () => {
     ).to.equal(
         JSON.stringify(expectedResult)
     )
+
+    /*
+    // Outra opção seria definir a função de comparação fora:
+    const isDog = (a) => a.species === 'dog'
+    const dogs = animals.filter(isDog)
+    // A principal vantagem desse método, é a separação dos problemas
+    // já que, por exemplo, se quisermos todos animais que NÃO são cachorros,
+    // podemos reaproveitar grande parte do código
+    const notDogs = animals.filter(!isDog)
+    */
 
 })
