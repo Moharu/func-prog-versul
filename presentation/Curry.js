@@ -2,34 +2,51 @@ import expect from 'expect.js'
 
 it('Currying functions', () => {
 
-    // Uma função "curriada" (curried, de 'to curry')
-    // é uma função que recebe múltiplos argumentos, mas
-    // que são avaliados a partir de múltiplas funções que, por sua
-    // vez, tem um argumento só.
+    // Tá mas, por que eu iria fazer isso???
+    // Para esse exemplo, vou extrair (ctrl+c ctrl+v) o código do nosso
+    // exemplo da função Filter:
+    const animals = [
+        { name: 'José', species: 'bird'},
+        { name: 'Claudiovaldo', species: 'dog'},
+        { name: 'Boladepelo', species: 'cat'},
+        { name: 'Cusco', species: 'dog'},
+        { name: 'Godofredo', species: 'bird'},
+        { name: 'Garfield', species: 'cat'},
+        { name: 'Scooby', species: 'dog'}
+    ]
 
-    // Não entendi nada.
+    const isDog = (a) => a.species === 'dog'
+    const dogs = animals.filter(isDog)
+    // é importante reparar que estamos utilizando a função
+    // "isDog", que é uma expressão bem específica. Se quisermos
+    // apenas os gatos, teríamos que escrever uma nova função:
+    const isCat = (a) => a.species === 'cat'
 
-    // Olha lá:
-    // Função padrão
-    let somaTresNumeros = (a,b,c) => a + b + c
+    // Como poderíamos fazer para generalizar isso?
+    // Curry! (Não o tempero)
+    const isSpecies = (species) => (animal) => animal.species === species
+    const catiuros = animals.filter(isSpecies('dog'))
+    const gatineos = animals.filter(isSpecies('cat'))
+
+    const expectedDogs = [
+        { name: 'Claudiovaldo', species: 'dog'},
+        { name: 'Cusco', species: 'dog'},
+        { name: 'Scooby', species: 'dog'}
+    ]
+    const expectedCats = [
+        { name: 'Boladepelo', species: 'cat'},
+        { name: 'Garfield', species: 'cat'}
+    ]
+
     expect(
-        somaTresNumeros(1,2,3)
-    ).to.equal(6)
-    // Função "curriada"
-    let somaTresNumerosCurry = (a) => (b) => (c) => a + b + c
-    /*
-        Caso não tenha entendido a expressão acima, ela pode ser
-        escrita assim também:
-        function(a){
-            return function(b){
-                return function(c){
-                    return a+b+c
-                }
-            }
-        }
-    */
+        JSON.stringify(catiuros)
+    ).to.equal(
+        JSON.stringify(expectedDogs)
+    )
     expect(
-        somaTresNumerosCurry(1)(2)(3)
-    ).to.equal(6)
+        JSON.stringify(gatineos)
+    ).to.equal(
+        JSON.stringify(expectedCats)
+    )
 
 })
