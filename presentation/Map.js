@@ -16,30 +16,20 @@ it('Função MAP', () => {
         { name: 'Scooby', species: 'dog'}
     ]
 
-    // Quero um novo array que faça a apresentação dos animais
-
-    /* Exemplo ilustrativo com "for"
-    let presentation = []
-    for(let i = 0; i < animals.length; i++){
-        let a = animals[i]
-        presentation.push(`${a.name} is a ${a.species}`)
-    }
-    */
+    // Uma das principais vantagens observáveis é na composição de funções:
+    // Imagine que queremos a frase de apresentação dos cachorros apenas
+    const isDog = (a) => a.species === 'dog'
     const presentationPhrase = (a) => `${a.name} is a ${a.species}`
-    const presentation = animals.map(presentationPhrase)
+    const presentationDogs = animals.filter(isDog).map(presentationPhrase)
 
     const expectedResult = [
-        'José is a bird',
         'Claudiovaldo is a dog',
-        'Boladepelo is a cat',
         'Cusco is a dog',
-        'Godofredo is a bird',
-        'Garfield is a cat',
         'Scooby is a dog'
     ]
 
     expect(
-        JSON.stringify(presentation)
+        JSON.stringify(presentationDogs)
     ).to.equal(
         JSON.stringify(expectedResult)
     )
